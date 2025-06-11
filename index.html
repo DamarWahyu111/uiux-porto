@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio UI/UX Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: black;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: rgba(12, 11, 11, 0.9);
+            margin-bottom: 2rem;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: 2px solid #feca57;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            aspect-ratio: 9/16;
+            display: flex;
+            flex-direction: column;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+
+        .project-images {
+            position: relative;
+            height: 60%;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+            flex-shrink: 0;
+        }
+
+        .project-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-images img {
+            transform: scale(1.15);
+        }
+
+        .image-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .project-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            /* -webkit-line-clamp: 3; */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .project-tag {
+            background: #f0f0f0;
+            color: #666;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .modal-images img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .project-card {
+                max-width: 280px;
+            }
+            
+            .project-info {
+                padding: 1.2rem;
+            }
+            
+            .project-info h3 {
+                font-size: 1.1rem;
+            }
+            
+            .project-info p {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .project-card {
+                max-width: 100%;
+                aspect-ratio: 9/14;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">PortfolioUX</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Saya <span class="highlight">UI/UX Designer</span> Yang Passionate</h1>
+                    <p>Menciptakan pengalaman digital yang menarik dan intuitif melalui desain yang berpusat pada pengguna. Mari berkolaborasi untuk mewujudkan visi digital Anda!</p>
+                    <div class="cta-buttons">
+                        <a href="#portfolio" class="btn btn-primary">Lihat Portfolio</a>
+                        <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="./img/WhatsApp Image 2025-06-10 at 14.45.46_c012ae3e.jpg" alt="UI/UX Design Work">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang Saya</h2>
+                <p>Seorang yang sedang terjun ke dalam UI/UX Design</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="./img/WhatsApp Image 2025-06-10 at 14.45.46_c012ae3e.jpg" alt="Profile Picture">
+                </div>
+                <div class="about-text">
+                    <h3>Halo! Saya UI/UX Designer pemula yang antusias menciptakan pengalaman digital yang bermakna</h3>
+                    <p>Saya baru memulai perjalanan saya di dunia UI/UX dan telah menyelesaikan satu project desain aplikasi dalam studi saya di kampus. Meski masih di awal, saya sangat bersemangat untuk terus belajar dan mengembangkan keterampilan saya dalam menciptakan desain yang fungsional dan berfokus pada pengguna.</p>
+                    <p>Filosofi desain saya adalah: "Desain yang baik tidak hanya indah dipandang, tetapi juga mudah digunakan." Saya percaya bahwa desain adalah alat untuk menyelesaikan masalah nyata, dan saya ingin terus berkontribusi dalam menciptakan solusi digital yang berguna dan menyenangkan.</p>
+                    <div class="skills">
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">UX Research</span>
+                        <span class="skill-tag">Prototyping</span>
+                        <span class="skill-tag">Figma</span>                        
+                        <span class="skill-tag">Wireframing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Portfolio Saya</h2>
+                <p>Kumpulan project UI/UX yang telah saya kerjakan dengan berbagai industri dan kompleksitas</p>
+            </div>
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="project-card" onclick="openModal('project1')">
+                    <div class="project-images">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=250&fit=crop" alt="E-commerce App">
+                        <div class="image-counter">6 Images</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Workshop Mobile App</h3>
+                        <p>Rancangan Mobile Aplikasi untuk mendukung guna booking online dan pembelian didalam aplikasi. Memberikan kesan yang mudah dipahami dan mudah untuk user.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Mobile App</span>
+                            <span class="project-tag">E-commerce</span>
+                            <span class="project-tag">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <!-- <div class="project-card" onclick="openModal('project2')">
+                    <div class="project-images">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" alt="Dashboard Analytics">
+                        <div class="image-counter">8 Images</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Analytics Dashboard</h3>
+                        <p>Perancangan dashboard analytics untuk startup fintech. Memberikan visualisasi data yang kompleks dalam format yang mudah dipahami oleh stakeholder bisnis.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Web App</span>
+                            <span class="project-tag">Dashboard</span>
+                            <span class="project-tag">Data Viz</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience</h2>
+                <p>Skills yang punya</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>UI Design</h3>
+                    <p>Menciptakan interface yang menarik, konsisten, dan sesuai dengan brand identity. Dari wireframe hingga high-fidelity mockup.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>UX Research</h3>
+                    <p>Melakukan riset mendalam tentang user behavior, pain points, dan kebutuhan untuk menghasilkan solusi design yang tepat sasaran.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Prototyping</h3>
+                    <p>Membuat prototype interaktif untuk testing dan validasi konsep sebelum development. Menggunakan tools seperti Figma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mari Berkolaborasi</h2>
+                <p>Siap untuk mewujudkan proyek digital!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="company">Perusahaan (Opsional)</label>
+                            <input type="text" id="company" name="company">
+                        </div> -->
+                        <!-- <div class="form-group">
+                            <label for="project">Jenis Proyek</label>
+                            <select id="project" name="project" style="width: 100%; padding: 12px; border: 2px solid #f0f0f0; border-radius: 8px; font-size: 1rem;">
+                                <option value="">Pilih jenis proyek...</option>
+                                <option value="mobile-app">Mobile App Design</option>
+                                <option value="web-design">Web Design</option>
+                                <option value="dashboard">Dashboard Design</option>
+                                <option value="redesign">Product Redesign</option>
+                                <option value="consultation">Design Consultation</option>
+                                <option value="other">Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Budget Range</label>
+                            <select id="budget" name="budget" style="width: 100%; padding: 12px; border: 2px solid #f0f0f0; border-radius: 8px; font-size: 1rem;">
+                                <option value="">Pilih budget range...</option>
+                                <option value="5-10">Rp 5-10 Juta</option>
+                                <option value="10-25">Rp 10-25 Juta</option>
+                                <option value="25-50">Rp 25-50 Juta</option>
+                                <option value="50+">Rp 50+ Juta</option>
+                                <option value="discuss">Mari Diskusikan</option>
+                            </select>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="message">Proyek Collab</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Deskripsikan proyek, goals, target audience, dan requirements lainnya..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pesan</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>damarwahyup160@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p>+62 878-7498-9010</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Lokasi</h4>
+                            <p>Bekasi, Jawa Barat, Indonesia</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p>www.linkedin.com/in/damarwahyuputra</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🐦</div>
+                        <div>
+                            <h4>Github</h4>
+                            <p>https://github.com/DamarWahyu111</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <!-- <div class="social-links">
+                <a href="#" title="LinkedIn">💼</a>
+                <a href="#" title="Dribbble">🏀</a>
+                <a href="#" title="Behance">🎨</a>
+                <a href="#" title="Instagram">📸</a>
+                <a href="#" title="Twitter">🐦</a>
+            </div> -->
+            <p>&copy; 2025 Portfolio UI/UX Designer. Dibuat dengan ❤️ dan passion untuk design.</p>
+        </div>
+    </footer>
+
+    <!-- Modals for Project Details -->
+    <div id="project1" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Workshop Mobile App</h2>
+            <p><strong>Client:</strong>Project | <strong>Duration:</strong> 2 Minggu | <strong>Role:</strong> Damar UI/UX Designer</p>
+            
+            <h3>Challenge</h3>
+            <p>Membuat aplikasi dengan berbasis booking online.</p>
+            
+            <h3>Solution</h3>
+            <p>Menggunakan figma untuk membuat design UI dan Prototype:</p>
+            <ul>
+                <li>Simple checkout</li>
+                <li>Implementasi produk pada bagian home</li>
+                <li>Penemuan produk yang lebih baik dengan pemfilteran cerdas</li>
+                <li>Performa yang dioptimalkan untuk kecepatan pemuatan</li>
+            </ul>
+
+            <h3>Project Images</h3>
+            <div class="modal-images">
+                <img src="./img/Screenshot 2025-03-05 145718.png" alt="Homepage Design">
+                <img src="./img/Screenshot 2025-03-05 145731.png" alt="Product Listing">
+                <img src="./img/Screenshot 2025-03-05 145749.png" alt="Product Detail">
+                <img src="./img/Screenshot 2025-03-05 152544.png" alt="Shopping Cart">
+                <img src="./img/Screenshot 2025-03-05 152622.png" alt="Checkout Process">
+                <img src="./img/Screenshot 2025-03-05 152715.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 152816.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 153045.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 153317.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 153945.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 154452.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 154536.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 154655.png" alt="Order Confirmation">
+                <img src="./img/Screenshot 2025-03-05 154715.png" alt="Order Confirmation">
+            </div>
+
+            <h3>Results</h3>
+            <ul>
+                <li>Warna sesuai dengan nama "Workshop"</li>
+                <li>UX yang mudah dipahami oleh User.</li>
+                <li>Simple UX.</li>
+                <li>Selengkapnya hasil ada pada Linkedln.</li>
+                <!-- <li>Average session duration naik 45%</li>
+                <li>User satisfaction score naik dari 3.2 menjadi 4.6/5</li> -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Modal functionality
+        function openModal(projectId) {
+            const modal = document.getElementById(projectId);
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal when clicking X
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                this.closest('.modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.email || !data.message) {
+                alert('Mohon lengkapi semua field yang required!');
+                return;
+            }
+            
+            // Simulate form submission
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            button.textContent = 'Mengirim...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert('Terima kasih! Pesan Anda telah terkirim. Saya akan segera menghubungi Anda kembali.');
+                this.reset();
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 30px rgba(0,0,0,0.15)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.project-card, .service-card, .about-content').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Typing effect for hero title (optional enhancement)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect on page load
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-text h1');
+            const originalText = heroTitle.innerHTML;
+            // Uncomment the line below if you want typing effect
+            // typeWriter(heroTitle, originalText, 50);
+        });
+    </script>
+</body>
+</html>
